@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block style %}
+
+{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+        <ul>
+
+            <h3 class="text-center"> Invoice </h3>
+
+            {% for invoice in invoice_list %}
+            <li>
+                <b>Id:</b> <a href="{% url 'client:invoice_detail' invoice.client.pk invoice.product_order.unique_id %}">{{ invoice.product_order.unique_id }}</a>  <br>
+{#                {% for list in  invoice.invoicelist_set.all  %}#}
+{#                    {{ list.product_item.product_name }} --- {{ list.product_item.product_model }}  --- {{ list.product_item.quantity }} --- {{ list.product_item.price }} --- {{ list.product_item.discount }}% --- {{ list.product_item.get_total }}<br>#}
+{#                {% endfor %}#}
+
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+{% endblock %}

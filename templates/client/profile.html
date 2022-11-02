@@ -1,0 +1,146 @@
+{% extends 'base.html' %}
+{% block style %}
+<link
+  rel="stylesheet"
+  href="https://unpkg.com/@trevoreyre/autocomplete-js/dist/style.css"
+/>
+{% endblock %}
+
+{% block body %}
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Add Product Info</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form method="POST"> {% csrf_token %}
+
+            <div class="row">
+{#              <div class="col-md-6">#}
+{#                  <label for="search" class="col-form-label">search:</label>#}
+{#                    <input required type="search" name="search" class="form-control" id="search">#}
+{#              </div>#}
+                <div id="autocomplete" class="autocomplete col-md-12">
+                  <input required type="search" name="search"  class="autocomplete-input form-control" />
+                  <ul class="autocomplete-result-list"></ul>
+                </div>
+            </div>
+            <input type="hidden" name="model" id="model-number">
+           <div class="row">
+              <div class="col-md-6">
+                 <label for="price" class="col-form-label">Price:</label>
+                 <input required  type="number" name="price" class="form-control" id="price">
+              </div>
+              <div class="col-md-6">
+                  <label for="quantity" class="col-form-label">Quantity:</label>
+                  <input required type="number" name="quantity" class="form-control" id="quantity">
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-12">
+                 <label for="discount" class="col-form-label">Discount:</label>
+                  <input required type="number" name="discount" class="form-control" id="discount">
+              </div>
+            </div>
+
+        <button type="submit" class="btn btn-primary mt-2">Submit</button>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+
+        <ul>
+
+            <li> {{ object.first_name }} </li>
+            <li> {{ object.last_name }} </li>
+            <li> {{ object.village }} </li>
+
+             <hr>
+
+
+        </ul>
+ <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Add Product  </button>
+
+<br>
+<br>
+<a class="btn btn-primary" href="{% url 'client:invoice' object.pk %}">Invoice List</a>
+<br>
+<br>
+<a class="btn btn-primary" href="{% url 'client:installments' object.pk %}">Installment</a>
+
+    {% if product_list %}
+    <h3> All Product List </h3>
+<ul>
+    {% for product in product_list %}
+    <li>
+        <b>Name:</b> {{ product.product_name }} |
+        <b>Model:</b> {{ product.product_model }} |
+        <b>Price:</b> {{ product.price }} |
+        <b>Quantity:</b> {{ product.quantity }} |
+        <b> Total Price:</b> {% widthratio product.price 1 product.quantity %} |
+        <b>Discount:</b> {{ product.discount }}% |
+        <b>After Discount:</b> {{ product.get_total }}
+
+
+    </li>
+    {% endfor %}
+</ul>
+
+    <a class="btn btn-primary" href="{% url 'client:checkout' object.pk %}"> Next </a>
+{% endif %}
+</div>
+{% endblock %}
+
+{% block script %}
+
+    <script src="https://unpkg.com/@trevoreyre/autocomplete-js"></script>
+
+
+    <script>
+    model_number = document.getElementById('model-number')
+
+    new Autocomplete('#autocomplete', {
+        search: input =>{
+            const url = `/client/get-names/?search=${(input)}`
+            return new Promise(resolve => {
+                fetch(url)
+                    .then(response=>response.json())
+                    .then(data=>{
+                        resolve(data.data)
+                    })
+            })
+        },
+        renderResult: (result, props) =>{
+            let group = ''
+            if(result % 3 === 0){
+                group = `<li class="group"> Group </li>`
+            }
+            return `
+                ${group}
+                <li ${props}>
+                    <div class="wiki-title"> ${result.name} </div>
+                </li>
+            `
+
+        },
+        getResultValue: result => result.name,
+        onSubmit: result =>{
+            model_number.setAttribute("value", result.model_name)
+        }
+    })
+    </script>
+
+
+
+{% endblock %}

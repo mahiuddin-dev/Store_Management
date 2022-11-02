@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+{% block style %}
+
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+
+        <form method="POST"> {% csrf_token %}
+           <div class="row">
+              <div class="col-md-6">
+                 <label for="current_pay" class="col-form-label">Current Pay:</label>
+                  <input required onchange="changeValue()" type="number" name="current_pay" class="form-control" id="current_pay">
+              </div>
+               <div class="col-md-6">
+                 <label for="total_amount" class="col-form-label">Total Amount:</label>
+                  <input disabled value="{{ total }}" name="total_amount" type="number" class="form-control" id="total_amount">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                 <label for="total_installment" class="col-form-label">Total Installment:</label>
+                  <input required onchange="changeInstalment()" type="number" name="total_installment" class="form-control" id="total_installment">
+              </div>
+               <div class="col-md-6">
+                 <label for="remaining" class="col-form-label">Remaining:</label>
+                  <input disabled  type="number" name="remaining" class="form-control" id="remaining">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                 <label for="installment_method" class="col-form-label">Installment Method:</label>
+                 <select class="select-dropdown" name="installment_method">
+                     <option> Select Method </option>
+                     <option value="W"> Weakly </option>
+                     <option value="M"> Monthly </option>
+                 </select>
+              </div>
+                <div class="col-md-6">
+                 <label for="installment_amount" class="col-form-label">Installment Amount:</label>
+                  <input disabled  type="number" name="installment_amount" class="form-control" id="installment_amount">
+              </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                 <label for="installment_day" class="col-form-label">Installment Pay Day:</label>
+                  <select class="select-dropdown" name="installment_day">
+                     <option> Select Day </option>
+                     <option value="6"> Sunday </option>
+                     <option value="0"> Monday </option>
+                     <option value="1"> Tuesday </option>
+                     <option value="2"> Wednesday </option>
+                     <option value="3"> Thursday </option>
+                     <option value="4"> Friday </option>
+                     <option value="5"> Saturday </option>
+                 </select>
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary mt-2">Submit</button>
+        </form>
+
+    </div>
+
+{% endblock %}
+
+{% block script %}
+    <script>
+
+        function changeValue(){
+            let remaining = document.getElementById("remaining")
+            let current_pay = document.getElementById("current_pay").value
+            let remaining_amount = {{ total }} - parseInt(current_pay)
+            remaining.setAttribute('value', remaining_amount)
+        }
+
+        function changeInstalment(){
+            let total_installment = document.getElementById("total_installment").value
+            let installment_amount = document.getElementById("installment_amount")
+            let remaining = document.getElementById("remaining").value
+            let remaining_amount = parseInt(remaining)
+            let total = parseInt(total_installment)
+            let result = Math.ceil(remaining_amount / total)
+            installment_amount.setAttribute('value', result)
+        }
+
+
+
+
+
+    </script>
+
+{% endblock %}

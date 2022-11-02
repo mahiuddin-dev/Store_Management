@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block title %} Staff Page {% endblock title %}
+{% block style %}
+
+
+{% endblock style %}
+
+{% block body %}
+
+
+<div class="container">
+
+<div class="px-4 py-5 my-5 text-center">
+ <form method="POST"> {% csrf_token %}
+
+            <div class="row">
+              <div class="col-md-6">
+                  <label for="first_name" class="col-form-label">First Name:</label>
+                    <input required type="text" value="{{ staff_user.first_name }}" name="first_name" class="form-control" id="first_name">
+              </div>
+              <div class="col-md-6">
+                  <label for="last_name" class="col-form-label">Last Name:</label>
+                  <input required type="text" value="{{ staff_user.last_name }}" name="last_name" class="form-control" id="last_name">
+              </div>
+            </div>
+
+          <div class="mb-3">
+            <label for="email" class="col-form-label">Email:</label>
+            <input required type="email" value="{{ staff_user.email }}" name="email" class="form-control" id="email">
+          </div>
+
+           <div class="row">
+              <div class="col-md-6">
+                 <label for="password" class="col-form-label">Password:</label>
+                 <input required minlength="6" type="password" name="password" class="form-control" id="password">
+              </div>
+              <div class="col-md-6">
+                  <label for="confirm_password" class="col-form-label">Confirm Password:</label>
+                  <input required minlength="6" type="password" name="confirm_password" class="form-control" id="confirm_password">
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6">
+                 <label for="phone" class="col-form-label">Phone:</label>
+                  <input maxlength="11" value="{{ staff_user.phone_number }}" minlength="11" required type="number" name="phone" class="form-control" id="phone">
+              </div>
+              <div class="col-md-6">
+                  <label for="Address" class="col-form-label">Address:</label>
+                  <input type="text" value="{{ staff_user.address }}" name="address" class="form-control" id="Address">
+              </div>
+            </div>
+        <button  type="submit" name="update_staff" class="btn btn-primary mt-5">Update</button>
+        </form>
+  </div>
+</div>
+{% endblock  %}

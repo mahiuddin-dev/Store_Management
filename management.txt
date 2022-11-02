@@ -1,0 +1,64 @@
+
+App Stock:
+    class Product:
+        - Name
+        - Model
+        - Qty.
+        - Price
+        - Description (Optional)
+
+App Client:
+    class Client:
+        - First Name
+        - Last Name
+        - Father Name
+        - Care of (Optional)
+        - Phone Number
+        - Village
+        - upazila
+        - Zila
+
+    class ProductOrderItem:
+        - Product (Foreign key relation, on delete = PROTECT)
+        - Product Name
+        - Product Model
+        - Product Qty
+        - Product Price
+        - Product Discount (%)
+
+        (Property)
+        - Total Amount
+
+    class ProductOrder:
+        - Client (Foreign key relation, on delete = PROTECT)
+        - Current Pay
+        - Remaining Amount
+        - Interest (%)
+        - Installment Method (Weekly, Monthly)
+        - Installment Pay Day ( 7 days of week )
+        - Total Installment
+        - Installment Amount
+
+        (Property)
+        - Now Total Amount
+
+    class InstallmentPay:
+        - Client (Foreign key relation, on delete = PROTECT)
+        - ProductOrder (Foreign key relation, on delete = PROTECT)
+        - Installment Amount
+        - is pay
+        - is completed
+
+App Accounts:
+    class Profile:
+        - Unique id
+        - First Name
+        - Last Name
+        - Email
+        - Phone Number
+        - Address
+        - is verified
+
+    Profile Group:
+        - Store Admin ( All Access )
+        - Staff ( View Product, View Client Model, Access InstallmentPay model)
