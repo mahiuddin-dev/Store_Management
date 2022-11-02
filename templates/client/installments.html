@@ -12,10 +12,10 @@
 
             {% for list in total %}
                 {% for ins in list.installmentpay_set.all %}
-                   <li> {{ ins.date }} | {{ ins.pk }}
-                {% endfor %} <br>
-                    {{ list.installment_method }}
-                </li>
+                    {% if ins.is_pay == False %}
+                   <li> {{ ins.date }} | {{ ins.pk }} </li>
+                    {% endif %}
+                {% endfor %}
                 <br>
             {% endfor %}
 
