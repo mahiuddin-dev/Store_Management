@@ -38,9 +38,11 @@ class ClientProfile(DetailView):
         discount = self.request.POST.get('discount')
         client_user = self.get_object()
         product = Product.objects.get(model=model)
-        add_product = ProductOrderItem.objects.create(client=client_user, product=product, product_name=product.name, product_model=model, quantity=quantity, price=price, discount=discount)
-
-        add_product.save()
+        if int(product.quantity) > 0:
+            add_product = ProductOrderItem.objects.create(client=client_user, product=product, product_name=product.name, product_model=model, quantity=quantity, price=price, discount=discount)
+            add_product.save()
+        else:
+            return redirect(self.request.get_full_path(), {'msg': 'Product Quantity Empty'})
         return redirect(self.request.get_full_path())
 
     def dispatch(self, request, *args, **kwargs):
