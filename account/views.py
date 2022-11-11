@@ -89,7 +89,7 @@ class SignupView(View):
             context['has_error'] = True
 
         if context['has_error']:
-            return render(request, 'signup.html', context)
+            return render(request, 'sign-up.html', context)
 
         user = User.objects.create_user(email=email)
         user.set_password(password)

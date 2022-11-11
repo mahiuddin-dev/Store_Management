@@ -1,118 +1,232 @@
 {% load static %}
 
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="A fully featured admin theme which can be used to build CRM, CMS, etc." />
-    
+    <meta
+      name="description"
+      content="A fully featured admin theme which can be used to build CRM, CMS, etc."
+    />
+
     <!-- Favicon -->
-    <link rel="shortcut icon" href="assets/favicon/favicon.ico" type="image/x-icon"/>
-    
+    <link
+      rel="shortcut icon"
+      href="{% static 'assets/favicon/favicon.ico' %}"
+      type="image/x-icon"
+    />
+
     <!-- Map CSS -->
-    <link rel="stylesheet" href="../api.mapbox.com/mapbox-gl-js/v0.53.0/mapbox-gl.css" />
-    
+    <link
+      rel="stylesheet"
+      href="../api.mapbox.com/mapbox-gl-js/v0.53.0/mapbox-gl.css"
+    />
+
     <!-- Libs CSS -->
-    <link rel="stylesheet" href="assets/css/libs.bundle.css" />
-    
+    <link rel="stylesheet" href="{% static 'assets/css/libs.bundle.css' %}" />
+
     <!-- Theme CSS -->
-    <link rel="stylesheet" href="assets/css/theme.bundle.css" id="stylesheetLight" />
-    <link rel="stylesheet" href="assets/css/theme-dark.bundle.css" id="stylesheetDark" />
-    
-    <style>body { display: none; }</style>
-    
+    <link
+      rel="stylesheet"
+      href="{% static 'assets/css/theme.bundle.css' %}"
+      id="stylesheetLight"
+    />
+    <link
+      rel="stylesheet"
+      href="{% static 'assets/css/theme-dark.bundle.css' %}"
+      id="stylesheetDark"
+    />
+
+    <style>
+      body {
+        display: none;
+      }
+    </style>
+
     <!-- Title -->
     <title>Dashkit</title>
-    
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-156446909-1"></script><script>window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}gtag("js", new Date());gtag("config", "UA-156446909-1");</script>
-  </head>
-  <body class="d-flex align-items-center bg-auth border-top border-top-2 border-primary">
 
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=UA-156446909-1"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", "UA-156446909-1");
+    </script>
+  </head>
+  <body
+    class="d-flex align-items-center bg-auth border-top border-top-2 border-primary"
+  >
     <!-- CONTENT
     ================================================== -->
     <div class="container">
       <div class="row justify-content-center">
         <div class="col-12 col-md-5 col-xl-4 my-5">
-
           <!-- Heading -->
-          <h1 class="display-4 text-center mb-3">
-            Sign up
-          </h1>
+          <h1 class="display-4 text-center mb-3">Sign up</h1>
 
           <!-- Subheading -->
           <p class="text-muted text-center mb-5">
-            Free access to our dashboard.
+            Full access to dashboard.
           </p>
 
           <!-- Form -->
-          <form>
+          <form method="POST">
+            {% csrf_token %}
+
+            <!-- First Name -->
+            <div class="form-group">
+              <!-- Label -->
+              <label class="form-label"> First Name </label>
+
+              <!-- Input -->
+              <input
+                type="text"
+                name="first_name"
+                class="form-control"
+                placeholder="Jhon"
+                required
+              />
+            </div>
+            
+            <!-- Last Name -->
+            <div class="form-group">
+              <!-- Label -->
+              <label class="form-label"> Last Name </label>
+
+              <!-- Input -->
+              <input
+                type="text"
+                name="last_name"
+                class="form-control"
+                placeholder="Jhon"
+                required
+              />
+            </div>
+            
+            <!-- address -->
+            <div class="form-group">
+              <!-- Label -->
+              <label class="form-label"> Address </label>
+
+              <!-- Input -->
+              <input
+                type="text"
+                name="address"
+                class="form-control"
+                placeholder="TM Address"
+                required
+              />
+            </div>
+            
+            <!-- phone -->
+            <div class="form-group">
+              <!-- Label -->
+              <label class="form-label"> Phone </label>
+
+              <!-- Input -->
+              <input
+                type="tel"
+                name="phone"
+                class="form-control"
+                placeholder="+8801******"
+                required
+              />
+            </div>
 
             <!-- Email address -->
             <div class="form-group">
-
               <!-- Label -->
-              <label class="form-label">
-                Email Address
-              </label>
+              <label class="form-label"> Email Address </label>
 
               <!-- Input -->
-              <input type="email" class="form-control" placeholder="name@address.com">
-
+              <input
+                type="email"
+                name="email"
+                class="form-control"
+                placeholder="name@address.com"
+                required
+              />
             </div>
 
             <!-- Password -->
             <div class="form-group">
-
               <!-- Label -->
-              <label class="form-label">
-                Password
-              </label>
+              <label class="form-label"> Password </label>
 
               <!-- Input group -->
               <div class="input-group input-group-merge">
-
                 <!-- Input -->
-                <input class="form-control" type="password" placeholder="Enter your password">
+                <input
+                  class="form-control"
+                  type="password"
+                  name="password"
+                  placeholder="Enter your password"
+                  required
+                />
 
                 <!-- Icon -->
                 <span class="input-group-text">
                   <i class="fe fe-eye"></i>
                 </span>
+              </div>
+            </div>
 
+            <!-- Confirm Password -->
+            <div class="form-group">
+              <!-- Label -->
+              <label class="form-label"> Confirm Password </label>
+
+              <!-- Input group -->
+              <div class="input-group input-group-merge">
+                <!-- Input -->
+                <input
+                  class="form-control"
+                  type="password"
+                  name="confirmPassword"
+                  placeholder="Confirm password"
+                  required
+                />
+
+                <!-- Icon -->
+                <span class="input-group-text">
+                  <i class="fe fe-eye"></i>
+                </span>
               </div>
             </div>
 
             <!-- Submit -->
-            <button class="btn btn-lg w-100 btn-primary mb-3">
-              Sign up
-            </button>
+            <button class="btn btn-lg w-100 btn-primary mb-3">Sign up</button>
 
             <!-- Link -->
             <div class="text-center">
               <small class="text-muted text-center">
-                Already have an account? <a href="sign-in.html">Log in</a>.
+                Already have an account?
+                <a href="{% url 'account:login' %}">Log in</a>.
               </small>
             </div>
-
           </form>
-
         </div>
-      </div> <!-- / .row -->
-    </div> <!-- / .container -->
+      </div>
+      <!-- / .row -->
+    </div>
+    <!-- / .container -->
 
     <!-- JAVASCRIPT -->
     <!-- Map JS -->
-    <script src='../api.mapbox.com/mapbox-gl-js/v0.53.0/mapbox-gl.js'></script>
-    
+    <script src="../api.mapbox.com/mapbox-gl-js/v0.53.0/mapbox-gl.js"></script>
+
     <!-- Vendor JS -->
-    <script src="assets/js/vendor.bundle.js"></script>
-    
+    <script src="{% static 'assets/js/vendor.bundle.js' %}"></script>
+
     <!-- Theme JS -->
-    <script src="assets/js/theme.bundle.js"></script>
-
+    <script src="{% static 'assets/js/theme.bundle.js' %}"></script>
   </body>
-
-<!-- Mirrored from dashkit.goodthemes.co/sign-up.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 06 Oct 2022 13:11:13 GMT -->
 </html>
