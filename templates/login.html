@@ -1,32 +1,157 @@
-{% extends 'base.html' %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="A fully featured admin theme which can be used to build CRM, CMS, etc."
+    />
 
-{% block title %}Login{% endblock %}
+    <!-- Favicon -->
+    <link
+      rel="shortcut icon"
+      href="{% static 'assets/favicon/favicon.ico' %}"
+      type="image/x-icon"
+    />
 
-{% block body %}
-<div class="px-4 py-5 my-5 text-center">
-    <div class="col-lg-6 mx-auto">
-    <h2 class="mb-2">Log In</h2>
-        {% if messages %}
-            <ul class="messages">
-                {% for message in messages %}
-                    <li {% if message.tags %} class="{{ message.tags }}" {% endif %} > {{ message }} </li>
-                {% endfor %}
-            </ul>
-        {% endif %}
-      <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
-        <form method="POST">
-          {% csrf_token %}
-          <p>
-            <input type="email" name="email" class="form-control" placeholder="Email" required maxlength="150" id="id_username">
+    <!-- Map CSS -->
+    <link
+      rel="stylesheet"
+      href="../api.mapbox.com/mapbox-gl-js/v0.53.0/mapbox-gl.css"
+    />
+
+    <!-- Libs CSS -->
+    <link rel="stylesheet" href="{% static 'assets/favicon/favicon.ico' %}" />
+
+    <!-- Theme CSS -->
+    <link
+      rel="stylesheet"
+      href="{% static 'assets/css/theme.bundle.css' %}"
+      id="stylesheetLight"
+    />
+    <link
+      rel="stylesheet"
+      href="{% static 'assets/css/theme-dark.bundle.css' %}"
+      id="stylesheetDark"
+    />
+
+    <style>
+      body {
+        display: none;
+      }
+    </style>
+
+    <!-- Title -->
+    <title>Dashkit</title>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=UA-156446909-1"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", "UA-156446909-1");
+    </script>
+  </head>
+  <body
+    class="d-flex align-items-center bg-auth border-top border-top-2 border-primary"
+  >
+    <!-- CONTENT
+    ================================================== -->
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-12 col-md-5 col-xl-4 my-5">
+          <!-- Heading -->
+          <h1 class="display-4 text-center mb-3">Sign in</h1>
+
+          <!-- Subheading -->
+          <p class="text-muted text-center mb-5">
+            Access to dashboard.
           </p>
-            <p>
-            <input type="password" name="password" class="form-control" placeholder="Password" required maxlength="128" id="id_password">
-            </p>
-          <button class="btn btn-primary" type="submit">Log In</button>
-        </form>
+
+          <!-- Form -->
+          <form method="POST"> {% csrf_token %}
+            <!-- Email address -->
+            <div class="form-group">
+              <!-- Label -->
+              <label class="form-label"> Email Address </label>
+
+              <!-- Input -->
+              <input
+                type="email"
+                name = "email"
+                class="form-control"
+                placeholder="name@address.com"
+              />
+            </div>
+
+            <!-- Password -->
+            <div class="form-group">
+              <div class="row">
+                <div class="col">
+                  <!-- Label -->
+                  <label class="form-label"> Password </label>
+                </div>
+                <div class="col-auto">
+                  <!-- Help text -->
+                  <a
+                    href="password-reset-cover.html"
+                    class="form-text small text-muted"
+                  >
+                    Forgot password?
+                  </a>
+                </div>
+              </div>
+              <!-- / .row -->
+
+              <!-- Input group -->
+              <div class="input-group input-group-merge">
+                <!-- Input -->
+                <input
+                  class="form-control"
+                  type="password"
+                  name="password"
+                  placeholder="Enter your password"
+                />
+
+                <!-- Icon -->
+                <span class="input-group-text">
+                  <i class="fe fe-eye"></i>
+                </span>
+              </div>
+            </div>
+
+            <!-- Submit -->
+            <button class="btn btn-lg w-100 btn-primary mb-3">Sign in</button>
+
+            <!-- Link -->
+            <div class="text-center">
+              <small class="text-muted text-center">
+                Don't have an account yet? <a href="">Sign up</a>.
+              </small>
+            </div>
+          </form>
+        </div>
       </div>
-        <p class="pt-2 pb-2"> Or </p>
-        <a class="btn btn-primary" href=" ">Sing Up</a>
+      <!-- / .row -->
     </div>
-  </div>
-{% endblock %}
+    <!-- / .container -->
+
+    <!-- JAVASCRIPT -->
+    <!-- Map JS -->
+    <script src="../api.mapbox.com/mapbox-gl-js/v0.53.0/mapbox-gl.js"></script>
+
+    <!-- Vendor JS -->
+    <script src="{% static 'assets/js/vendor.bundle.js' %}"></script>
+
+    <!-- Theme JS -->
+    <script src="{% static 'assets/js/theme.bundle.js' %}"></script>
+  </body>
+</html>

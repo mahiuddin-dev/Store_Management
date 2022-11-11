@@ -10,6 +10,9 @@ from account.models import User
 class IndexView(TemplateView):
     template_name = 'index.html'
 
+class Deshborad(TemplateView):
+    template_name = 'deshboard.html'
+
 
 class StaffView(LoginRequiredMixin, View):
 

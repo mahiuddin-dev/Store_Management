@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %}Login{% endblock %}
+
+{% block body %}
+<div class="px-4 py-5 my-5 text-center">
+    <div class="col-lg-6 mx-auto">
+    <h2 class="mb-2">Log In</h2>
+        {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                    <li {% if message.tags %} class="{{ message.tags }}" {% endif %} > {{ message }} </li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+      <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+        <form method="POST">
+          {% csrf_token %}
+          <p>
+            <input type="email" name="email" class="form-control" placeholder="Email" required maxlength="150" id="id_username">
+          </p>
+            <p>
+            <input type="password" name="password" class="form-control" placeholder="Password" required maxlength="128" id="id_password">
+            </p>
+          <button class="btn btn-primary" type="submit">Log In</button>
+        </form>
+      </div>
+        <p class="pt-2 pb-2"> Or </p>
+        <a class="btn btn-primary" href=" ">Sing Up</a>
+    </div>
+  </div>
+{% endblock %}

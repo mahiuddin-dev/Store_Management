@@ -19,7 +19,7 @@ class LoginView(View):
 
     def get(self, request):
         if request.user.is_authenticated:
-            return redirect('home:home')
+            return redirect('home:deshboard')
         return render(request, 'login.html')
 
     def post(self, request):
@@ -31,7 +31,7 @@ class LoginView(View):
             login(request, user)
             if request.GET.get('next', None):
                 return HttpResponseRedirect(request.GET['next'])
-            return redirect('home:home')
+            return redirect('home:deshboard')
         else:
             context = {'email': email}
             messages.error(request, 'Invalid email or password')
@@ -43,7 +43,7 @@ class LoginView(View):
 class LogoutView(View):
     def get(self, request):
         logout(request)
-        return redirect('account:login')
+        return redirect('home:home')
 
 
 class SignupView(View):
