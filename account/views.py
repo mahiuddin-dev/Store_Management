@@ -47,7 +47,7 @@ class LogoutView(View):
 
 
 class SignupView(View):
-    template_name = 'signup.html'
+    template_name = 'sign-up.html'
 
     def get(self, request):
         if request.user.is_authenticated:
